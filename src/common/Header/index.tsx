@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { Dialog, Popover } from "@headlessui/react";
 import { useSelector } from "react-redux";
-
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-
 import Cart from "@/components/Cart";
 import Link from "next/link";
 import { RootState } from "@/redux/store";
-
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
-
+  const pathName = usePathname();
   const toggleSideBar = () => setOpenCart((open) => !open);
 
   const { cart } = useSelector((state: RootState) => state.cart);
@@ -20,18 +19,20 @@ export default function Header() {
     <>
       <header className="bg-white">
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between py-6 lg:px-0"
+          className="mx-auto flex max-w-7xl items-center justify-between py-6 px-6 xl:px-0"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
             <Link legacyBehavior passHref href="/">
               <a className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <img
-                  className="h-20 w-18"
-                  src="https://img.freepik.com/free-vector/flat-design-bookstore-logo-template_23-2149325325.jpg?w=826&t=st=1701090789~exp=1701091389~hmac=bb5cbecb581461c77bb6f6c98c2844f4f9647aaf26c0f55c198adf934371a201"
+                <Image
+                  className="w-16"
+                  src="/icons/logo.jpeg"
                   alt="Logo"
-                />
+                  width={100}
+                  height={100}
+                />{" "}
               </a>
             </Link>
           </div>
@@ -47,15 +48,27 @@ export default function Header() {
           </div>
           <Popover.Group className="hidden lg:flex lg:gap-x-12">
             <Link legacyBehavior passHref href="/">
-              <a className="text-sm font-semibold leading-6 text-gray-900">
+              <span
+                className={`text-sm font-semibold leading-6 cursor-pointer ${
+                  pathName === "/"
+                    ? "text-indigo-600 border-b-2"
+                    : "text-gray-900"
+                }`}
+              >
                 Home
-              </a>
+              </span>
             </Link>
 
             <Link legacyBehavior passHref href="/about-us">
-              <a className="text-sm font-semibold leading-6 text-gray-900">
+              <span
+                className={`text-sm font-semibold leading-6 cursor-pointer  ${
+                  pathName === "/about-us"
+                    ? "text-indigo-600 border-b-2"
+                    : "text-gray-900"
+                }`}
+              >
                 About
-              </a>
+              </span>
             </Link>
           </Popover.Group>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end relative">
@@ -68,20 +81,12 @@ export default function Header() {
               onClick={toggleSideBar}
               className="cursor-pointer text-sm font-semibold leading-6 text-gray-900"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                />
-              </svg>
+              <Image
+                src="/icons/cart-icon.svg"
+                alt="cart"
+                width={32}
+                height={32}
+              />
             </div>
           </div>
         </nav>
@@ -96,13 +101,13 @@ export default function Header() {
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
-                <img
-                  className="h-20 w-18"
-                  src="https://img.freepik.com/free-vector/flat-design-bookstore-logo-template_23-2149325325.jpg?w=826&t=st=1701090789~exp=1701091389~hmac=bb5cbecb581461c77bb6f6c98c2844f4f9647aaf26c0f55c198adf934371a201"
+                <Image
+                  className="w-18"
+                  src="/icons/logo.jpeg"
                   alt="Logo"
                   width={100}
                   height={100}
-                />
+                />{" "}
               </a>
               <button
                 type="button"
@@ -117,15 +122,27 @@ export default function Header() {
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="space-y-2 py-6">
                   <Link legacyBehavior passHref href="/">
-                    <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                    <span
+                      className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7  hover:bg-gray-50 cursor pointer${
+                        pathName === "/"
+                          ? "text-indigo-600 border-b-2"
+                          : "text-gray-900"
+                      }`}
+                    >
                       Home
-                    </a>
+                    </span>
                   </Link>
 
                   <Link legacyBehavior passHref href="/about-us">
-                    <a className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                    <span
+                      className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-50 cursor pointer ${
+                        pathName === "/about-us"
+                          ? "text-indigo-600 border-b-2"
+                          : "text-gray-900"
+                      }`}
+                    >
                       About
-                    </a>
+                    </span>
                   </Link>
                 </div>
                 <div className="py-6  lg:flex lg:flex-1 lg:justify-end relative">
@@ -138,20 +155,12 @@ export default function Header() {
                     onClick={toggleSideBar}
                     className="cursor-pointer text-sm font-semibold leading-6 text-gray-900"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                      />
-                    </svg>
+                    <Image
+                      src="/icons/cart-icon.svg"
+                      alt="cart"
+                      width={20}
+                      height={20}
+                    />
                   </div>
                 </div>
               </div>
